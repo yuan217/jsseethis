@@ -1,0 +1,66 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="zh-tw">
+<head>
+<meta charset="utf-8" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>JS展開</title>
+<script type="text/javascript">
+	$(function(){
+		// 幫 #qaContent 的 ul 子元素加上 .accordionPart
+		// 接著再找出 li 中的第一個 div 子元素加上 .qa_title
+		// 並幫其加上 hover 及 click 事件
+		// 同時把兄弟元素加上 .qa_content 並隱藏起來
+		$('#qaContent ul').addClass('accordionPart').find('li div:nth-child(1)').addClass('qa_title').hover(function(){
+			$(this).addClass('qa_title_on');
+		}, function(){
+			$(this).removeClass('qa_title_on');
+		}).click(function(){
+			// 當點到標題時，若答案是隱藏時則顯示它，同時隱藏其它已經展開的項目
+			// 反之則隱藏
+			var $qa_content = $(this).next('div.qa_content');
+			if(!$qa_content.is(':visible')){
+				$('#qaContent ul li div.qa_content:visible').slideUp();
+			}
+			$qa_content.slideToggle();
+		}).siblings().addClass('qa_content').hide();
+	});
+</script>
+</head>
+
+<body>
+<div id="qaContent">
+	<ul>
+		<li>
+			<div>第一個機關</div>
+			<div>
+				因航運成本較高，本站提供免運費服務的範圍只限台灣本島。<br />
+				若送貨地點是在離島等地時，目前暫不提供寄送服務。
+			</div>
+		</li>
+		<li>
+			<div>第二個機關</div>
+			<div>
+				依照消保法規定，消費者均享有商品到貨七天猶豫期之權益。<br />
+				但退回商品必須是全新狀態且完整包裝，否則恕不接受退貨。
+			</div>
+		</li>
+		<li>
+			<div>第三個機關</div>
+			<div>
+				只要消費者是在七天的猶豫期或是保固期限之內退貨的話，<br />
+				其運費均由本站全額負責。
+			</div>
+		</li>
+	</ul>
+</div>
+
+<style type="text/css">
+	ul li
+	{
+	list-style-type:none;
+	}
+</style>
+
+</body>
+</html>
